@@ -1,0 +1,70 @@
+---
+import type { CategoryNode } from "../../utils/post";
+import { url } from "../../utils/url-utils";
+// 递归组件：渲染单个分类节点及其所有后代
+import RecursiveCategoryTreeNode from "./CategoryTreeNode.astro";
+
+interface Props {
+	node: CategoryNode;
+	depth: number;
+}
+
+const { node, depth } = Astro.props;
+const hasChildren = node.children.length > 0;
+const isTop = depth === 0;
+const href = url(`/category/${node.fullName}/`);
+
+// 整行（名字区域）的公共样式
+const rowBase = [
+	"group flex-1 flex items-center justify-between rounded-lg pl-2 pr-2 transition min-w-0",
+	"hover:text-[var(--primary)] dark:hover:text-[var(--primary)] hover:bg-[var(--btn-plain-bg-hover)] active:bg-[var(--btn-plain-bg-active)]",
+	isTop
+		? "h-9 font-bold text-neutral-700 dark:text-neutral-300"
+		: "h-8 text-neutral-600 dark:text-neutral-400",
+];
+// 文章数徽章样式
+const badgeClass = isTop
+	? "min-w-[1.5rem] px-1.5 h-6 rounded-md text-xs font-bold flex items-center justify-center text-[var(--btn-content)] dark:text-[var(--deep-text)] bg-[var(--btn-regular-bg)] dark:bg-[var(--primary)]"
+	: "text-xs text-black/40 dark:text-white/40";
+---
+
+<div class="category-group" data-cat-group data-cat-key={node.fullName}>
+    <div class="flex items-center">
+        {hasChildren ? (
+            <>
+                {/* 父分类：点击整行（名字区域）即展开/折叠 */}
+                <button type="button" data-cat-toggle aria-expanded="true"
+                        aria-label={`展开或折叠分类「${node.name}」`}
+                        class:list={[...rowBase, "cat-row text-left pr-1"]}>
+                    <span class="text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">{node.name}</span>
+                    <svg class="cat-chevron w-4 h-4 ml-2 shrink-0 transition-transform duration-200 text-black/50 dark:text-white/50"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                {/* 数字徽章作为“查看该分类全部文章”的链接 */}
+                <a href={href} data-cat-path={href}
+                   aria-label={`查看分类「${node.name}」下的全部文章`}
+                   class:list={["cat-badge-link shrink-0 ml-1 transition hover:brightness-110 active:scale-95", badgeClass]}>
+                    {node.count}
+                </a>
+            </>
+        ) : (
+            <a href={href} data-cat-path={href}
+               aria-label={`查看分类「${node.name}」下的全部文章`}
+               class:list={[...rowBase, "cat-link"]}>
+                <span class="text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">{node.name}</span>
+                <span class:list={["ml-2 shrink-0", badgeClass]}>{node.count}</span>
+            </a>
+        )}
+    </div>
+
+    {hasChildren && (
+        <div class="cat-children ml-3 pl-2 border-l border-black/10 dark:border-white/10">
+            {node.children.map((child) => (
+                <RecursiveCategoryTreeNode node={child} depth={depth + 1} />
+            ))}
+        </div>
+    )}
+</div>

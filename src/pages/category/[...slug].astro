@@ -1,0 +1,83 @@
+---
+import PostPage from "@components/PostPage.astro";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import {
+	type CategoryNode,
+	getCategoryTree,
+	getPostsByCategory,
+} from "@utils/post";
+import { url } from "@utils/url-utils";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+	const tree = await getCategoryTree();
+	const paths: {
+		params: { slug: string };
+		props: { category: string };
+	}[] = [];
+
+	// 递归为每一层分类节点生成一个列表页
+	const walk = (nodes: CategoryNode[]) => {
+		for (const node of nodes) {
+			paths.push({
+				params: { slug: node.fullName },
+				props: { category: node.fullName },
+			});
+			walk(node.children);
+		}
+	};
+	walk(tree);
+
+	return paths;
+}) satisfies GetStaticPaths;
+
+const { category } = Astro.props;
+
+const posts = await getPostsByCategory(category);
+const page = { data: posts };
+
+const categoriesLabel = i18n(I18nKey.categories);
+const segments = category.split("/");
+// 构造多级面包屑，每一级链接到其累积路径
+const crumbs = segments.map((seg, i) => ({
+	name: seg,
+	href: url(`/category/${segments.slice(0, i + 1).join("/")}/`),
+	isLast: i === segments.length - 1,
+}));
+const title = segments.join(" / ");
+---
+
+<MainGridLayout title={`${categoriesLabel}: ${title}`}>
+    <div class="flex flex-col">
+        <!-- 分类面包屑卡片 -->
+        <div class="card-base w-full px-6 md:px-9 py-4 mb-4 onload-animation">
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span class="text-sm text-black/50 dark:text-white/50">{categoriesLabel}</span>
+                {crumbs.map((crumb) => (
+                    <>
+                        <span class="text-black/30 dark:text-white/30">/</span>
+                        {crumb.isLast ? (
+                            <span class="font-bold text-lg text-[var(--primary)]">{crumb.name}</span>
+                        ) : (
+                            <a href={crumb.href}
+                               class="font-bold text-lg text-90 hover:text-[var(--primary)] transition">
+                                {crumb.name}
+                            </a>
+                        )}
+                    </>
+                ))}
+                <span class="ml-auto text-sm text-black/50 dark:text-white/50">{posts.length} 篇</span>
+            </div>
+        </div>
+
+        {posts.length > 0 ? (
+            <PostPage page={page}></PostPage>
+        ) : (
+            <div class="card-base w-full px-6 md:px-9 py-12 text-center text-black/50 dark:text-white/50 onload-animation">
+                该分类下暂无文章
+            </div>
+        )}
+    </div>
+</MainGridLayout>

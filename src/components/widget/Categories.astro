@@ -1,0 +1,94 @@
+---
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import { getCategoryTree } from "../../utils/post";
+import CategoryTreeNode from "./CategoryTreeNode.astro";
+import WidgetLayout from "./WidgetLayout.astro";
+
+const categoryTree = await getCategoryTree();
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const className = Astro.props.class;
+const style = Astro.props.style;
+---
+
+<WidgetLayout name={i18n(I18nKey.categories)} id="categories" class={className} style={style}>
+    <category-tree class="block">
+        {categoryTree.map((node) => (
+            <CategoryTreeNode node={node} depth={0} />
+        ))}
+
+        {categoryTree.length === 0 && (
+            <div class="h-9 flex items-center pl-2 text-sm text-black/50 dark:text-white/50">暂无分类</div>
+        )}
+    </category-tree>
+</WidgetLayout>
+
+<script>
+    function directChildren(group: HTMLElement): HTMLElement | null {
+        return Array.from(group.children).find((child) =>
+            child.classList.contains("cat-children"),
+        ) as HTMLElement | null;
+    }
+
+    function setCollapsed(group: HTMLElement, collapsed: boolean) {
+        const children = directChildren(group);
+        const toggle = group.querySelector<HTMLElement>(":scope > div > [data-cat-toggle]");
+        if (!children || !toggle) return;
+
+        children.hidden = collapsed;
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+        const chevron = toggle.querySelector<HTMLElement>(".cat-chevron");
+        if (chevron) chevron.style.transform = collapsed ? "rotate(-90deg)" : "";
+    }
+
+    function onCategoryToggle(event: MouseEvent) {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const toggle = target.closest<HTMLElement>("category-tree [data-cat-toggle]");
+        if (!toggle) return;
+
+        const group = toggle.closest<HTMLElement>("[data-cat-group]");
+        if (!group) return;
+
+        const children = directChildren(group);
+        if (!children) return;
+
+        event.preventDefault();
+        setCollapsed(group, !children.hidden);
+    }
+
+    function updateActive() {
+        let current = window.location.pathname;
+        try {
+            current = decodeURIComponent(current);
+        } catch {}
+
+        document.querySelectorAll<HTMLElement>("category-tree [data-cat-path]").forEach((link) => {
+            const path = link.getAttribute("data-cat-path") ?? "";
+            const active = decodePath(path) === current;
+            link.classList.toggle("!text-[var(--primary)]", active);
+            link.classList.toggle("bg-[var(--btn-plain-bg-hover)]", active);
+        });
+    }
+
+    function decodePath(path: string): string {
+        try {
+            return decodeURIComponent(path);
+        } catch {
+            return path;
+        }
+    }
+
+    // 脚本只执行一次，但事件绑定在 document 上，因此 Swup 替换页面内容后仍然有效。
+    if (document.documentElement.dataset.categoryTreeBound !== "true") {
+        document.addEventListener("click", onCategoryToggle);
+        document.addEventListener("astro:page-load", updateActive);
+        document.documentElement.dataset.categoryTreeBound = "true";
+    }
+    updateActive();
+</script>
