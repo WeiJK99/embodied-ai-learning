@@ -1,0 +1,47 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "博客：创建文章",
+			"type": "process",
+			"command": "pnpm",
+			"args": ["new-post", "${input:postPath}", "${input:postTitle}"],
+			"problemMatcher": []
+		},
+		{
+			"label": "博客：本地预览",
+			"type": "process",
+			"command": "pnpm",
+			"args": ["dev"],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "博客：发布文章",
+			"type": "process",
+			"command": "pnpm",
+			"args": ["publish-post", "--", "${input:commitMessage}"],
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "postPath",
+			"type": "promptString",
+			"description": "文章路径，例如 slam-notes/index",
+			"default": "new-article/index"
+		},
+		{
+			"id": "postTitle",
+			"type": "promptString",
+			"description": "文章标题",
+			"default": "新文章"
+		},
+		{
+			"id": "commitMessage",
+			"type": "promptString",
+			"description": "本次发布说明",
+			"default": "发布新文章"
+		}
+	]
+}
