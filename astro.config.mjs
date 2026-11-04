@@ -26,8 +26,8 @@ import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-cop
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://github.com/WeiJK99/embodied-ai-learning",
-	base: "/",
+	site: "https://weijk99.github.io",
+	base: "/embodied-ai-learning",
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
