@@ -3,7 +3,7 @@ title: "ACT"
 published: 2026-11-03
 description: ""
 image: ""
-tags: ["VLA"]
+tags: ["VLA", "模仿学习"]
 category: "每周论文精读"
 draft: false
 lang: ""
