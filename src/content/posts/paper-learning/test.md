@@ -1,10 +1,10 @@
 ---
-title: "每周论文精读"
+title: "ACT"
 published: 2026-11-03
-description: "每周一篇具身智能相关论文的精读。"
+description: ""
 image: ""
-tags: ["机器人","VLA","WAM"]
-category: "论文精读"
+tags: ["VLA"]
+category: "每周论文精读"
 draft: false
 lang: ""
 ---
