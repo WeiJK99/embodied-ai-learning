@@ -4,7 +4,7 @@ published: 2026-11-04
 description: '智能体通过与环境交互、以奖励为信号学习策略。'
 image: ''
 tags: ["强化学习"]
-category: '基础知识/强化学习/ppo'
+category: '基础知识/强化学习'
 draft: false
 lang: ''
 ---
