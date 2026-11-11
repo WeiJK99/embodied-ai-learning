@@ -9,7 +9,7 @@ authors:
   - Vikash Kumar
   - Sergey Levine
   - Chelsea Finn
-published: 2026-11-11
+published: 2023-04-23
 venue: RSS 2023
 domain: 机器人学习 / 双臂精细操作 / 视觉模仿学习
 language: zh
