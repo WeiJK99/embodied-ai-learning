@@ -29,6 +29,32 @@ function output(command, args) {
 	return result.stdout.trim();
 }
 
+function sleep(milliseconds) {
+	Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
+}
+
+function pushWithRetry(maxAttempts = 3) {
+	for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+		console.log(`Push attempt ${attempt}/${maxAttempts}...`);
+		const result = spawnSync("git", ["push", "origin", "main"], {
+			stdio: "inherit",
+			shell: false,
+		});
+		if (result.status === 0) return;
+
+		if (attempt < maxAttempts) {
+			const delay = attempt * 5000;
+			console.log(`Push failed. Retrying in ${delay / 1000} seconds...`);
+			sleep(delay);
+		}
+	}
+
+	console.error(
+		"Push failed after 3 attempts. The commit is safe locally; run pnpm publish-post again or git push origin main later.",
+	);
+	process.exit(1);
+}
+
 const branch = output("git", ["branch", "--show-current"]);
 if (branch !== "main") {
 	console.error(
@@ -44,7 +70,21 @@ const articleChanges = output("git", [
 	"src/content/posts",
 ]);
 if (!articleChanges) {
-	console.log("No article changes found in src/content/posts.");
+	const unpushedCommits = Number(
+		output("git", ["rev-list", "--count", "origin/main..HEAD"]),
+	);
+	if (unpushedCommits > 0) {
+		console.log(
+			`No new article changes. Retrying ${unpushedCommits} unpushed commit(s)...\n`,
+		);
+		pushWithRetry();
+		console.log(
+			"\nPublished. GitHub Actions is now building and deploying the blog.",
+		);
+		process.exit(0);
+	}
+
+	console.log("No article changes or unpushed commits found.");
 	process.exit(0);
 }
 
@@ -70,7 +110,7 @@ console.log("\n[3/4] Creating the commit...\n");
 run("git", ["commit", "-m", message]);
 
 console.log("\n[4/4] Pushing to GitHub...\n");
-run("git", ["push", "origin", "main"]);
+pushWithRetry();
 
 console.log(
 	"\nPublished. GitHub Actions is now building and deploying the blog.",
