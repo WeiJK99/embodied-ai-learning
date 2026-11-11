@@ -26,7 +26,7 @@ domain:
   - VLA
   - robot-manipulation
   - imitation-learning
-language: zh
+language: zh-cn
 created: 2026-11-11
 tags:
   - OpenVLA
