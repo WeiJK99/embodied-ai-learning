@@ -1,10 +1,12 @@
 ---
-title: "ACT"
+title: π0.5 论文精读
 published: 2026-11-03
 description: ""
 image: ""
-tags: ["VLA", "模仿学习"]
-category: "每周论文精读/VLA"
+tags:
+  - VLA
+  - 模仿学习
+category: 每周论文精读/VLA
 draft: false
 lang: ""
 ---
