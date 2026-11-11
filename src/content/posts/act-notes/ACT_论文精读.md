@@ -18,7 +18,6 @@ status: analyzed
 tags:
   - 论文精读
   - ACT
-  - ALOHA
   - CVAE
 category: 每周论文精读
 ---
