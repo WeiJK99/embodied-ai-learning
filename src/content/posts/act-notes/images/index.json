@@ -1,0 +1,167 @@
+[
+  {
+    "filename": "fig01_aloha_overview_p01.png",
+    "pdf_page": 1,
+    "bbox_points": [
+      44,
+      158,
+      568,
+      362
+    ],
+    "width": 1310,
+    "height": 510,
+    "title": "图1：ALOHA 系统与能力展示",
+    "purpose": "遥操作展示与自主学习实验需要区分。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig03_hardware_p03.png",
+    "pdf_page": 3,
+    "bbox_points": [
+      44,
+      48,
+      568,
+      215
+    ],
+    "width": 1310,
+    "height": 418,
+    "title": "图3：硬件、四视角相机及参数",
+    "purpose": "定位相机与关节空间遥操作设计。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig04_act_architecture_p04.png",
+    "pdf_page": 4,
+    "bbox_points": [
+      44,
+      49,
+      568,
+      224
+    ],
+    "width": 1310,
+    "height": 438,
+    "title": "图4：ACT 总体架构",
+    "purpose": "区分训练用 CVAE 编码器与推理用策略。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig05_chunk_temporal_p04.png",
+    "pdf_page": 4,
+    "bbox_points": [
+      44,
+      228,
+      303,
+      384
+    ],
+    "width": 648,
+    "height": 390,
+    "title": "图5：动作分块与时间集成",
+    "purpose": "聚合指向同一执行时刻的多个预测。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig06_real_tasks_p07.png",
+    "pdf_page": 7,
+    "bbox_points": [
+      44,
+      48,
+      568,
+      747
+    ],
+    "width": 1310,
+    "height": 1748,
+    "title": "图6：六个真实任务定义",
+    "purpose": "任务初始化、阶段与最终成功判据。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig07_sim_tasks_p08.png",
+    "pdf_page": 8,
+    "bbox_points": [
+      44,
+      48,
+      568,
+      154
+    ],
+    "width": 1310,
+    "height": 265,
+    "title": "图7：两个仿真任务定义",
+    "purpose": "物体初始化区域及阶段。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "tables01_02_results_p08.png",
+    "pdf_page": 8,
+    "bbox_points": [
+      44,
+      160,
+      568,
+      391
+    ],
+    "width": 1310,
+    "height": 578,
+    "title": "表I–II：完整主实验结果",
+    "purpose": "含基线、脚本/人类示范及各阶段结果。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig08_ablations_p10.png",
+    "pdf_page": 10,
+    "bbox_points": [
+      44,
+      51,
+      568,
+      237
+    ],
+    "width": 1310,
+    "height": 466,
+    "title": "图8：分块、时间集成、CVAE 与用户研究",
+    "purpose": "对应四组消融，不混合不同评估口径。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig10_camera_observations_p16.png",
+    "pdf_page": 16,
+    "bbox_points": [
+      44,
+      48,
+      568,
+      408
+    ],
+    "width": 1310,
+    "height": 900,
+    "title": "图10：执行时相机观测",
+    "purpose": "保留低对比度、遮挡和尺度信息。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "fig11_detailed_architecture_p17.png",
+    "pdf_page": 17,
+    "bbox_points": [
+      65,
+      65,
+      512,
+      650
+    ],
+    "width": 1118,
+    "height": 1463,
+    "title": "图11：训练及推理详细架构",
+    "purpose": "图中728通道标注与正文512通道存在冲突。",
+    "source": "local PDF; rendered crop; original figure"
+  },
+  {
+    "filename": "table03_act_hyperparameters_p18.png",
+    "pdf_page": 18,
+    "bbox_points": [
+      192,
+      151,
+      419,
+      273
+    ],
+    "width": 568,
+    "height": 306,
+    "title": "表III：ACT 超参数",
+    "purpose": "以本地论文的 k=100 为复现起点。",
+    "source": "local PDF; rendered crop; original figure"
+  }
+]
