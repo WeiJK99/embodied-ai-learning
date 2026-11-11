@@ -1,8 +1,4 @@
 ---
-document_id: file-68a38abd19edb531
-source_type: local_pdf
-source_url: ""
-local_source: ../Learning Fine-Grained Bimanual Manipulation with__Low-Cost Hardware.pdf
 title: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware｜ACT 论文精读
 authors:
   - Tony Z. Zhao
@@ -12,14 +8,14 @@ authors:
 published: 2023-04-23
 venue: RSS 2023
 domain: 机器人学习 / 双臂精细操作 / 视觉模仿学习
-language: zh
+language: zh-cn
 created: 2026-11-11
+category: 每周论文精读
 status: analyzed
 tags:
   - 论文精读
   - ACT
   - CVAE
-category: 每周论文精读
 ---
 
 # ACT 论文精读：低成本双臂如何学会精细操作
