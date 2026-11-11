@@ -1,4 +1,5 @@
 import { getCollection } from "astro:content";
+import { comparePostsByDate } from "./post-date";
 
 // 分类树节点类型（支持任意层级嵌套）
 export interface CategoryNode {
@@ -103,9 +104,5 @@ export async function getPostsByCategory(category: string) {
 		return current === target || current.startsWith(`${target}/`);
 	});
 
-	return filtered.sort(
-		(a, b) =>
-			new Date(b.data.published).getTime() -
-			new Date(a.data.published).getTime(),
-	);
+	return filtered.sort(comparePostsByDate);
 }

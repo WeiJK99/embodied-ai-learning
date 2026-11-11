@@ -48,6 +48,7 @@ if (!fs.existsSync(dirPath)) {
 const content = `---
 title: "${title.replaceAll('"', '\\"')}"
 published: ${getDate()}
+created: ${getDate()}
 description: ''
 image: ''
 tags: []

@@ -6,6 +6,7 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@utils/content-utils";
+import { getBlogDate } from "@utils/post-date";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
@@ -38,7 +39,7 @@ const jsonLd = {
 		name: profileConfig.name,
 		url: Astro.site,
 	},
-	datePublished: formatDateToYYYYMMDD(entry.data.published),
+	datePublished: formatDateToYYYYMMDD(getBlogDate(entry.data)),
 	inLanguage: entry.data.lang
 		? entry.data.lang.replace("_", "-")
 		: siteConfig.lang.replace("_", "-"),
@@ -87,7 +88,7 @@ const jsonLd = {
             <div class="onload-animation">
                 <PostMetadata
                         class="mb-5"
-                        published={entry.data.published}
+                        published={getBlogDate(entry.data)}
                         updated={entry.data.updated}
                         tags={entry.data.tags}
                         category={entry.data.category}
@@ -106,7 +107,7 @@ const jsonLd = {
                 <Content />
             </Markdown>
 
-            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={getBlogDate(entry.data)} class="mb-6 rounded-xl license-container onload-animation"></License>}
 
         </div>
     </div>
