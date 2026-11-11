@@ -1,6 +1,6 @@
 ---
 title: Nav2 基础
-published: 2026-11-06
+published: 2026-11-11
 description: 本文主要总结Nav2相关知识点
 image: ""
 tags:
