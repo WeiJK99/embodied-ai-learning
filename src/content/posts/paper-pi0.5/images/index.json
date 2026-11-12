@@ -1,0 +1,177 @@
+{
+  "source_type": "local_pdf",
+  "document_id": "file-c8c7993d969619ba",
+  "source_pdf_sha256": "6a1029fd8ab6944b74cf22f5e5d30e60bc15699d964b2900af799b807a34b64c",
+  "verified_paper_url": "https://arxiv.org/abs/2504.16054v1",
+  "method": "PyMuPDF page crop at 3x; figures and captions preserved",
+  "figures": [
+    {
+      "figure": 1,
+      "pdf_page": 1,
+      "file": "fig01_overview_p01.png",
+      "crop_points": [
+        45,
+        208,
+        567,
+        534
+      ],
+      "width": 1566,
+      "height": 978,
+      "sha256": "e452fb09dc1ba012ab565f1ac03407542b86875a91228817951ab0bb9298a513"
+    },
+    {
+      "figure": 3,
+      "pdf_page": 4,
+      "file": "fig03_architecture_p04.png",
+      "crop_points": [
+        45,
+        53,
+        567,
+        331
+      ],
+      "width": 1566,
+      "height": 834,
+      "sha256": "df49d50d0cdb458a37147c192efd9ca0b116c731286946d8085b79a841c8c277"
+    },
+    {
+      "figure": 4,
+      "pdf_page": 6,
+      "file": "fig04_data_mixture_p06.png",
+      "crop_points": [
+        45,
+        53,
+        567,
+        406
+      ],
+      "width": 1566,
+      "height": 1059,
+      "sha256": "d3b2ccb57d107b93726cbbbf53f91a4373e0fe4de26181df410b9c1921fdd5e6"
+    },
+    {
+      "figure": 5,
+      "pdf_page": 7,
+      "file": "fig05_robot_p07.png",
+      "crop_points": [
+        309,
+        48,
+        567,
+        259
+      ],
+      "width": 774,
+      "height": 633,
+      "sha256": "b40364410139d3fd78829dd0caf674b371105386ada8bb50e5a1fac4241a3056"
+    },
+    {
+      "figure": 7,
+      "pdf_page": 8,
+      "file": "fig07_real_homes_p08.png",
+      "crop_points": [
+        45,
+        235,
+        567,
+        438
+      ],
+      "width": 1566,
+      "height": 609,
+      "sha256": "c73015bdfd270919510a423f9156018c9933d3833e93d57a38cb7902afc21e37"
+    },
+    {
+      "figure": 8,
+      "pdf_page": 9,
+      "file": "fig08_location_scaling_p09.png",
+      "crop_points": [
+        45,
+        51,
+        303,
+        271
+      ],
+      "width": 774,
+      "height": 660,
+      "sha256": "4a744682323348122c519a0a683b31dce7309673db7e0e1b3d477b117559957c"
+    },
+    {
+      "figure": 9,
+      "pdf_page": 9,
+      "file": "fig09_language_scaling_p09.png",
+      "crop_points": [
+        309,
+        51,
+        567,
+        229
+      ],
+      "width": 774,
+      "height": 534,
+      "sha256": "e20fc2bfdffa3f86cd6ad2341462b67768e230708f6ec6821a07a9ea2b78dbef"
+    },
+    {
+      "figure": 10,
+      "pdf_page": 10,
+      "file": "fig10_data_ablation_p10.png",
+      "crop_points": [
+        45,
+        51,
+        303,
+        267
+      ],
+      "width": 774,
+      "height": 648,
+      "sha256": "03871e0333c575367bbb10f62c9352d470fb616dd4d4cfcf16d4395546727e56"
+    },
+    {
+      "figure": 11,
+      "pdf_page": 10,
+      "file": "fig11_language_ablation_p10.png",
+      "crop_points": [
+        45,
+        274,
+        303,
+        483
+      ],
+      "width": 774,
+      "height": 627,
+      "sha256": "d5781f082b50c9a784edd7721050af8aba010e7888a97468b18061ec384030d3"
+    },
+    {
+      "figure": 12,
+      "pdf_page": 10,
+      "file": "fig12_model_comparison_p10.png",
+      "crop_points": [
+        309,
+        51,
+        567,
+        204
+      ],
+      "width": 774,
+      "height": 459,
+      "sha256": "6b29963853d0f3ab56e2d77a64e21a9718ccf865adefe3a309e915229936d71a"
+    },
+    {
+      "figure": 13,
+      "pdf_page": 11,
+      "file": "fig13_high_level_ablation_p11.png",
+      "crop_points": [
+        45,
+        51,
+        303,
+        317
+      ],
+      "width": 774,
+      "height": 798,
+      "sha256": "464e0165ee1d990f7ba632dd42c3408e6c394183c3ba0e31f13fe6e40e0645a8"
+    },
+    {
+      "figure": 18,
+      "pdf_page": 19,
+      "file": "fig18_attention_mask_p19.png",
+      "crop_points": [
+        326,
+        51,
+        563,
+        325
+      ],
+      "width": 711,
+      "height": 822,
+      "sha256": "c5b4a82ff07fb833c0e02eb0dc40db72793b9caefe3419344f2b6206644f8535"
+    }
+  ]
+}
