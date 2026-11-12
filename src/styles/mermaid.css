@@ -1,0 +1,49 @@
+.custom-md .mermaid-diagram {
+	margin: 1.5rem 0;
+	max-width: 100%;
+	overflow: hidden;
+	border: 1px solid var(--line-divider);
+	border-radius: 0.75rem;
+	background: var(--card-bg);
+}
+
+.mermaid-canvas {
+	max-width: 100%;
+	overflow-x: auto;
+	padding: 1.25rem;
+	color: var(--deep-text);
+}
+
+.mermaid-canvas > svg {
+	display: block;
+	min-width: min(36rem, var(--mermaid-width, 36rem));
+	height: auto;
+	margin-inline: auto;
+}
+
+.mermaid-details {
+	border-top: 1px solid var(--line-divider);
+	padding: 0.75rem 1rem;
+	color: var(--primary);
+	font-size: 0.875rem;
+}
+
+.mermaid-details > summary {
+	cursor: pointer;
+}
+
+.custom-md .mermaid-source {
+	margin: 1rem 0 0;
+	padding: 1rem;
+	overflow-x: auto;
+	background: var(--codeblock-bg);
+	color: #e2e8f0;
+	white-space: pre;
+}
+
+.custom-md .mermaid-source > code {
+	padding: 0;
+	background: transparent;
+	color: inherit;
+	font-size: 0.8125rem;
+}

@@ -172,7 +172,7 @@ $$
 ### 3.5 闭环执行与时序边界
 
 ```mermaid
-flowchart LR
+flowchart TD
     C[当前相机图像] --> V[DINOv2 与 SigLIP]
     V --> P[按 patch 拼接特征并投影]
     L[语言指令] --> M[Llama 2]
