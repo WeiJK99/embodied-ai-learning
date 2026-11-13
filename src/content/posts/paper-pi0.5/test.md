@@ -1,14 +1,13 @@
 ---
-title: "π0.5 论文精读：异构数据共训如何让 VLA 泛化到新家庭"
+title: π0.5 论文精读：异构数据共训如何让 VLA 泛化到新家庭
 published: 2026-11-03
-updated: 2026-11-12
-description: "从数据配方、FAST 与 Flow Matching、分层推理到实机消融，拆解 π0.5 的开放环境泛化证据与局限。"
-image: "./images/fig01_overview_p01.png"
+created: 2026-11-12
+description: 从数据配方、FAST 与 Flow Matching、分层推理到实机消融，拆解 π0.5 的开放环境泛化证据与局限。
+image: ./images/fig01_overview_p01.png
 tags:
   - VLA
   - 模仿学习
   - 论文精读
-  - π0.5
   - Flow Matching
 category: 每周论文精读/VLA
 draft: false
