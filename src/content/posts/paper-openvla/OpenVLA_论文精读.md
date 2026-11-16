@@ -31,6 +31,7 @@ created: 2026-11-11
 tags:
   - OpenVLA
 category: 每周论文精读/VLA
+image: ./assets/fig01_overview.png
 ---
 
 # OpenVLA：从视觉语言模型到可微调的机器人动作策略

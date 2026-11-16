@@ -1,0 +1,205 @@
+{
+  "source_type": "local_pdf",
+  "document_id": "file-6f0dbb41fd8485ac",
+  "source_pdf_sha256": "3739b31f5fecdde371509ff5bb13619979734e894a255a9b264253f4cc53934a",
+  "verified_paper_url": "https://arxiv.org/abs/2501.09747v1",
+  "method": "PyMuPDF PDF page crops at 3x; numbered figure captions preserved",
+  "figures": [
+    {
+      "file": "fig01_overview_p01.png",
+      "label": "图1：训练收敛与任务展示",
+      "pdf_page": 1,
+      "crop_points": [
+        309,
+        230,
+        566,
+        724
+      ],
+      "width": 771,
+      "height": 1482,
+      "sha256": "789f795dd4f8aa77757eff6bac5de086b4849fd0457c1ca684b8e8fe63616525"
+    },
+    {
+      "file": "fig03_sampling_p03.png",
+      "label": "图3：采样频率与插值预测",
+      "pdf_page": 3,
+      "crop_points": [
+        309,
+        57,
+        566,
+        503
+      ],
+      "width": 771,
+      "height": 1338,
+      "sha256": "3ebaa0383aa202bc637c12c3c9b65d02495404ac5845fb735f71199150b2de36"
+    },
+    {
+      "file": "fig04_tokenizer_p05.png",
+      "label": "图4：FAST 编码流程",
+      "pdf_page": 5,
+      "crop_points": [
+        46,
+        55,
+        566,
+        296
+      ],
+      "width": 1560,
+      "height": 723,
+      "sha256": "526ff891edf0fef056314424e76bad767fdba739dfbb5afe97515e1cc8a4b9d0"
+    },
+    {
+      "file": "fig05_tasks_p06.png",
+      "label": "图5：七类评估环境",
+      "pdf_page": 6,
+      "crop_points": [
+        309,
+        56,
+        566,
+        548
+      ],
+      "width": 771,
+      "height": 1476,
+      "sha256": "844e8a8c76f70e6b66f6ad515db8688c6d5d6eaa16b1e5ff79983d17532f955b"
+    },
+    {
+      "file": "fig06_tokenizer_comparison_p08.png",
+      "label": "图6：分词方法策略对比",
+      "pdf_page": 8,
+      "crop_points": [
+        46,
+        56,
+        566,
+        253
+      ],
+      "width": 1560,
+      "height": 591,
+      "sha256": "5813f1f28d086fff33a2ca1d3eb21b61df6c54e9ea401cead3b6dbe01c49d8e2"
+    },
+    {
+      "file": "fig07_droid_campuses_p08.png",
+      "label": "图7：三校区定性演示",
+      "pdf_page": 8,
+      "crop_points": [
+        46,
+        276,
+        303,
+        547
+      ],
+      "width": 771,
+      "height": 813,
+      "sha256": "8cda11a401291bffac622aee9b57b260b613745dd6e4878440257591176f59c2"
+    },
+    {
+      "file": "fig08_universal_compression_p08.png",
+      "label": "图8：FAST+ 离线压缩迁移",
+      "pdf_page": 8,
+      "crop_points": [
+        309,
+        276,
+        566,
+        457
+      ],
+      "width": 771,
+      "height": 543,
+      "sha256": "f9516d5c94f308d2d892feb3d691ccec430f8721eafedfbd74a437c9530b6b95"
+    },
+    {
+      "file": "ablation_backbone_p09.png",
+      "label": "未编号消融：OpenVLA 骨干",
+      "pdf_page": 9,
+      "crop_points": [
+        194,
+        285,
+        302,
+        397
+      ],
+      "width": 324,
+      "height": 336,
+      "sha256": "ae3078a433253bba83bc490b85f65fd00a1a92b752b6a591fdc46e09a156c30c"
+    },
+    {
+      "file": "ablation_bpe_p09.png",
+      "label": "未编号消融：移除 BPE",
+      "pdf_page": 9,
+      "crop_points": [
+        194,
+        485,
+        302,
+        608
+      ],
+      "width": 324,
+      "height": 369,
+      "sha256": "3179f1da88d53c18480c1614f8d2733a023628ef83c5311072c84cb29249d1bc"
+    },
+    {
+      "file": "fig09_diffusion_comparison_p09.png",
+      "label": "图9：单数据集训练与 Flow Matching 对比",
+      "pdf_page": 9,
+      "crop_points": [
+        309,
+        55,
+        566,
+        301
+      ],
+      "width": 771,
+      "height": 738,
+      "sha256": "6f6664e2dffebceff0a305f628df0f31cd8275e29d1e9bd60e42b68a41051823"
+    },
+    {
+      "file": "fig10_laundry_rollout_p10.png",
+      "label": "图10：洗衣折叠轨迹",
+      "pdf_page": 10,
+      "crop_points": [
+        46,
+        55,
+        566,
+        246
+      ],
+      "width": 1560,
+      "height": 573,
+      "sha256": "ec854cfc8d9a5f6baf1dc952d046911891020b4de6638c92ece4a0ebaaf2a640"
+    },
+    {
+      "file": "fig11_generalist_p10.png",
+      "label": "图11：通用策略表现",
+      "pdf_page": 10,
+      "crop_points": [
+        46,
+        263,
+        303,
+        490
+      ],
+      "width": 771,
+      "height": 681,
+      "sha256": "bb29ef0363373e0ce65b5c7ae88513d78bf7fbd29a9abeb62fb84973f6f6c82b"
+    },
+    {
+      "file": "fig12_rate_distortion_p16.png",
+      "label": "图12：压缩与重建误差",
+      "pdf_page": 16,
+      "crop_points": [
+        309,
+        55,
+        566,
+        610
+      ],
+      "width": 771,
+      "height": 1665,
+      "sha256": "89f917763d7c3c47e176b21318fa2f045d0b54c1bee1d23e7fb7c9fc2909cfd2"
+    },
+    {
+      "file": "fig15_compute_matched_p18.png",
+      "label": "图15：相同训练算力对比",
+      "pdf_page": 18,
+      "crop_points": [
+        309,
+        473,
+        566,
+        714
+      ],
+      "width": 771,
+      "height": 723,
+      "sha256": "e7eebf5dcd121cc417defb738a1f25c41759f0629c95e81efa26f00ab813c042"
+    }
+  ]
+}

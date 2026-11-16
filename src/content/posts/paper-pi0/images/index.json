@@ -1,0 +1,180 @@
+{
+  "source_type": "local_pdf",
+  "document_id": "file-6948bc3d3db1df79",
+  "source_pdf_sha256": "75667e62ba43f153805f2330b55966d0ff51abd03aa0ab76ef2d62ab201cc1fd",
+  "source_pages": 17,
+  "verified_paper_url": "https://arxiv.org/abs/2410.24164",
+  "official_pdf_url": "https://www.pi.website/download/pi0.pdf",
+  "version_note": "Local PDF has no explicit arXiv version stamp; do not assign v1/v4 from metadata dates.",
+  "method": "PyMuPDF page crops at 3x; original figures and captions preserved",
+  "figures": [
+    {
+      "figure": "fig01",
+      "pdf_page": 1,
+      "file": "fig01_overview_p01.png",
+      "crop_points": [
+        45,
+        212,
+        567,
+        575
+      ],
+      "width": 1566,
+      "height": 1089,
+      "sha256": "45cfc02a8838ba1273b968f8e5926f9822f80813f276f85ac15b1ec3aa318796"
+    },
+    {
+      "figure": "fig03",
+      "pdf_page": 4,
+      "file": "fig03_architecture_p04.png",
+      "crop_points": [
+        45,
+        53,
+        567,
+        266
+      ],
+      "width": 1566,
+      "height": 639,
+      "sha256": "e152cdd2a0cdf908d938e90f2df576d553dd7fa165955fb7d0d001e4f2d11691"
+    },
+    {
+      "figure": "fig04",
+      "pdf_page": 5,
+      "file": "fig04_data_mixture_p05.png",
+      "crop_points": [
+        308,
+        475,
+        567,
+        657
+      ],
+      "width": 777,
+      "height": 546,
+      "sha256": "8c028baa7eb48651bb4eb135d6e39846f575a01c78b5ee50ad2dadaaf4a13c55"
+    },
+    {
+      "figure": "fig05",
+      "pdf_page": 6,
+      "file": "fig05_robots_p06.png",
+      "crop_points": [
+        308,
+        53,
+        567,
+        281
+      ],
+      "width": 777,
+      "height": 684,
+      "sha256": "3d62611778f97dc02ec20718aabab9fc52878dfdba0d2310f67e9fde6219b353"
+    },
+    {
+      "figure": "fig07",
+      "pdf_page": 8,
+      "file": "fig07_base_results_p08.png",
+      "crop_points": [
+        45,
+        53,
+        304,
+        315
+      ],
+      "width": 777,
+      "height": 786,
+      "sha256": "e5c94a310c1d29670db56799a8d3fbbd66885879b79bd5b0593a01afdecc59c3"
+    },
+    {
+      "figure": "fig09",
+      "pdf_page": 9,
+      "file": "fig09_language_results_p09.png",
+      "crop_points": [
+        45,
+        53,
+        304,
+        332
+      ],
+      "width": 777,
+      "height": 837,
+      "sha256": "8c6d4eb6f2e49cd8efb57be4f07ee9b079ba4ac04fe4009bf811a9c97ac7afc8"
+    },
+    {
+      "figure": "fig10",
+      "pdf_page": 9,
+      "file": "fig10_adaptation_tasks_p09.png",
+      "crop_points": [
+        308,
+        53,
+        567,
+        326
+      ],
+      "width": 777,
+      "height": 819,
+      "sha256": "2f36d157d0132f85562d59c66e6d74eeb929b6bd3493b7ce746da842d440008b"
+    },
+    {
+      "figure": "fig11",
+      "pdf_page": 10,
+      "file": "fig11_adaptation_results_p10.png",
+      "crop_points": [
+        45,
+        53,
+        567,
+        352
+      ],
+      "width": 1566,
+      "height": 897,
+      "sha256": "577d0fc54b022c0235e394866a113349169a07179ecbfb98afe37fd01d1e7666"
+    },
+    {
+      "figure": "fig12",
+      "pdf_page": 11,
+      "file": "fig12_complex_tasks_p11.png",
+      "crop_points": [
+        45,
+        53,
+        304,
+        363
+      ],
+      "width": 777,
+      "height": 930,
+      "sha256": "5c7e997b168cb133d8aa89e0feac74ad3d524e2b63232572ee6283c7a5783579"
+    },
+    {
+      "figure": "fig13",
+      "pdf_page": 11,
+      "file": "fig13_complex_results_p11.png",
+      "crop_points": [
+        308,
+        53,
+        567,
+        371
+      ],
+      "width": 777,
+      "height": 954,
+      "sha256": "710315867751694eb2adb8640ed15412660eaf4b524815d1d3081a9e733fb466"
+    },
+    {
+      "figure": "fig14",
+      "pdf_page": 16,
+      "file": "fig14_flow_time_sampling_p16.png",
+      "crop_points": [
+        45,
+        53,
+        304,
+        259
+      ],
+      "width": 777,
+      "height": 618,
+      "sha256": "9417f9e67338f1eb6644bf335f96a87b09fc65b9e1f74dccb243650114553351"
+    },
+    {
+      "figure": "table01",
+      "pdf_page": 16,
+      "file": "table01_inference_latency_p16.png",
+      "crop_points": [
+        308,
+        559,
+        567,
+        676
+      ],
+      "width": 777,
+      "height": 351,
+      "sha256": "6eb0d0c5c625e99e712978e88f2efb6e3289b7ed17c3df18f853fd1e03ad9c26"
+    }
+  ]
+}
