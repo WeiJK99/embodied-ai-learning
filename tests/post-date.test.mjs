@@ -55,3 +55,16 @@ test("equal blog dates have a stable slug order and compare equal to themselves"
 	assert.deepEqual([b, a].sort(comparePostsByDate), [a, b]);
 	assert.equal(comparePostsByDate(a, a), 0);
 });
+
+test("create is accepted as an alias of created", () => {
+	const data = {
+		published: new Date("2026-11-03"),
+		create: new Date("2026-11-12"),
+	};
+	assert.equal(getBlogDate(data), data.create);
+	const older = { slug: "older", data: { published: new Date("2026-11-11") } };
+	assert.deepEqual(
+		[older, { slug: "pi05", data }].sort(comparePostsByDate).map((p) => p.slug),
+		["pi05", "older"],
+	);
+});

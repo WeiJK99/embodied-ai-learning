@@ -1,6 +1,6 @@
 # 博客日期与论文日期
 
-博客优先使用 Markdown frontmatter 中的 `created`（笔记创建日期）排序和显示日期，最新在前。没有 `created` 的旧文章继续使用 `published`，无需批量修改。
+博客优先使用 Markdown frontmatter 中的 `created`（笔记创建日期）排序和显示日期，最新在前。字段名写成 `create` 也可以（等价于 `created`，两者同时存在时以 `created` 为准）。两者都没有的旧文章继续使用 `published`，无需批量修改。
 
 论文阅读笔记示例：
 
