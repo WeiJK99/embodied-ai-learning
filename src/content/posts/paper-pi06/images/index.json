@@ -1,0 +1,231 @@
+{
+  "source_type": "local_pdf",
+  "document_id": "file-2f6b0f99743bf849",
+  "source_pdf_sha256": "9f4f5a3070ad9549ea7687ea54baa19858820dbcc0834cc805212d68fd6c8cb3",
+  "paper_version": "2511.14759v2",
+  "paper_url": "https://arxiv.org/abs/2511.14759v2",
+  "method": "PDF page-region rendering at 3x; bbox normalized from top-left; captions transcribed below",
+  "figures": [
+    {
+      "kind": "figure",
+      "num": "1",
+      "page": 1,
+      "caption": "Fig. 1: RECAP enables training VLAs with reward feedback and interventions. Our system starts with a pre-trained VLA that incorporates advantage conditioning, allowing the model to learn effectively from real-world experience. For each task, we deploy the model and collect both autonomous rollouts and online human corrections. We then fine-tune the value function on this online data, improving its estimates of how actions influence performance. Fine-tuning and conditioning the VLA on these updated advantage estimates in turn improves policy behavior.",
+      "bbox": [
+        0.075,
+        0.207,
+        0.925,
+        0.488
+      ],
+      "file": "fig-01.png",
+      "mode": "裁剪",
+      "sha256": "4655461b43eab2888398d4582a0b601ea3db99192126eb68332a7e64e1b74914",
+      "width": 1562,
+      "height": 669
+    },
+    {
+      "kind": "figure",
+      "num": "2",
+      "page": 2,
+      "caption": "Fig. 2: Some of the tasks learned by RECAP. π∗ 0.6 trained with RECAP can make espresso drinks, assemble cardboard boxes, and fold diverse and realistic laundry with a high success rate. Each task involves realistic variability – flattened unfolded boxes stick together and bend, making espresso drinks requires pouring liquids, and folding laundry requires generalization to a wide range of clothing items.",
+      "bbox": [
+        0.075,
+        0.064,
+        0.925,
+        0.289
+      ],
+      "file": "fig-02.png",
+      "mode": "裁剪",
+      "sha256": "e86cd382f9a87d8cd127439d8caafce6c12c9c661542c5ac84c565dc06457224",
+      "width": 1562,
+      "height": 535
+    },
+    {
+      "kind": "figure",
+      "num": "3",
+      "page": 4,
+      "caption": "Fig. 3: Interaction between the π∗ 0.6 VLA and value function during RECAP training. The π∗ 0.6 VLA uses a pre-trained VLM backbone. Training follows the KI recipe [73], with next-token prediction on many data sources in pre-training, and an flow-matching action-expert with stop gradient. The VLA is conditioned on a binarized advantage indicator, obtained from a separate value function initialized from a pre-trained but smaller VLM model.",
+      "bbox": [
+        0.505,
+        0.064,
+        0.925,
+        0.326
+      ],
+      "file": "fig-03.png",
+      "mode": "裁剪",
+      "sha256": "fe64e6f746c184961c1d3bb4e32ba79ab1e19686b9c8bad0c8abede2468982bf",
+      "width": 772,
+      "height": 623
+    },
+    {
+      "kind": "figure",
+      "num": "4",
+      "page": 5,
+      "caption": "Fig. 4: Visualization of the value functions. We train a multi-task value function to predict the number of steps to success, normalized by maximum task length to (−1, 0), where 0 corresponds to successful completion. We visualize the value function output on a folding task that finished successfully (left), and an unsuccessful example of a manipulation task from the pre-training dataset (right). The red parts highlight a drop in value, and green parts highlight increases; images on top show the corresponding frames of the episode. The visualization shows that the VF correctly identifies mistakes in the episode, as well as the speed of progress.",
+      "bbox": [
+        0.082,
+        0.071,
+        0.917,
+        0.223
+      ],
+      "file": "fig-04.png",
+      "mode": "裁剪",
+      "sha256": "6842a4f6ae4a11e77c5cf5790fa6b7cfacfbfc52fd0b109cb5db45230dcc5d4b",
+      "width": 1534,
+      "height": 362
+    },
+    {
+      "kind": "figure",
+      "num": "5",
+      "page": 7,
+      "caption": "Fig. 5: The robot setup used in our experiments. π∗ 0.6 is trained on data from many different robots in pre-training. For the iterative improvement experiments, we use a static bimanual system with two 6 DoF arms with parallel jaw grippers. The arms are controlled at 50 Hz with joint positions. Observations consist of joint and gripper positions, as well as images from three cameras: a base camera mounted between the arms, and a wrist-mounted camera on each arm. The setup can be mounted flexibly, e.g. on a table.",
+      "bbox": [
+        0.525,
+        0.064,
+        0.904,
+        0.252
+      ],
+      "file": "fig-05.png",
+      "mode": "裁剪",
+      "sha256": "796a412673ec16cdbbbe98bdd5eff6ac6293fa1040c7c61066ca406f309777ff",
+      "width": 697,
+      "height": 447
+    },
+    {
+      "kind": "figure",
+      "num": "6",
+      "page": 8,
+      "caption": "Fig. 6: Illustrations of the tasks used in our experiments. Tasks include three different laundry variants, assembling boxes, and making coffee drinks with an espresso machine.",
+      "bbox": [
+        0.096,
+        0.064,
+        0.904,
+        0.301
+      ],
+      "file": "fig-06.png",
+      "mode": "裁剪",
+      "sha256": "539a239fb8c1caba4ad7677b2b08ac2c656910bfae86d242131048459e1de4ba",
+      "width": 1484,
+      "height": 564
+    },
+    {
+      "kind": "figure",
+      "num": "7",
+      "page": 9,
+      "caption": "Fig. 7: Throughput. We show the number of successfully completed tasks per hour for laundry (simple and diverse), espresso making, and box assembly. Error bars show standard error. This metric measures both success and speed. In all cases, RECAP applied to π∗ 0.6 (Ours) leads to substantial improvements in throughput. RECAP has the highest impact on throughput for diverse laundry and espresso tasks, more than doubling successful completions per hour.",
+      "bbox": [
+        0.086,
+        0.064,
+        0.914,
+        0.242
+      ],
+      "file": "fig-07.png",
+      "mode": "裁剪",
+      "sha256": "de994c0995bad983cdb6d28ca49cbf4c79d23de6309f676056b4823ec648e966",
+      "width": 1522,
+      "height": 423
+    },
+    {
+      "kind": "figure",
+      "num": "8",
+      "page": 9,
+      "caption": "Fig. 8: Success rates. We show the absolute success rates with standard error. Each stage of RECAP improves performance across the tasks, with the challenging diverse laundry and espresso tasks seeing the largest gains success rate, corresponding to more than 2× reduction in failure rates. For the box assembly task we show the success rate for the different subtasks. RECAP leads to the most consistent (and highest) success across all subtasks.",
+      "bbox": [
+        0.085,
+        0.291,
+        0.915,
+        0.444
+      ],
+      "file": "fig-08.png",
+      "mode": "裁剪",
+      "sha256": "cf4c5b4dfc2269a0d726b59b989f6ddc0a5a23ec3d60825099757792a7336ad2",
+      "width": 1524,
+      "height": 364
+    },
+    {
+      "kind": "figure",
+      "num": "9",
+      "page": 10,
+      "caption": "Fig. 9: Improvement in throughput over multiple iterations. Both tasks improve significantly in throughput as we take more iterations of RECAP, with box assembling first dropping and then improving significantly.",
+      "bbox": [
+        0.093,
+        0.064,
+        0.478,
+        0.244
+      ],
+      "file": "fig-09.png",
+      "mode": "裁剪",
+      "sha256": "1e3062f2d861a10369dc7ba7a904a9a39c4ff28c67b0d39e4651b857c5656b59",
+      "width": 708,
+      "height": 428
+    },
+    {
+      "kind": "figure",
+      "num": "10",
+      "page": 10,
+      "caption": "Fig. 10: Improvement in success rate over multiple iterations. The laundry task quickly reaches the maximum success rate (but continues to improve in throughput as shown in Figure 9, while box assembly continues to improve.",
+      "bbox": [
+        0.078,
+        0.295,
+        0.492,
+        0.439
+      ],
+      "file": "fig-10.png",
+      "mode": "裁剪",
+      "sha256": "d3b91aa96e0e77ac0df296cde3e2721fac19fbbb8114eab23d4edd496d2a79af",
+      "width": 761,
+      "height": 344
+    },
+    {
+      "kind": "figure",
+      "num": "11",
+      "page": 10,
+      "caption": "Fig. 11: Comparison of different policy extraction methods. RECAP applied to π∗ 0.6 achieves by far the highest throughput for the laundry task compared to AWR and PPO.",
+      "bbox": [
+        0.506,
+        0.064,
+        0.924,
+        0.205
+      ],
+      "file": "fig-11.png",
+      "mode": "裁剪",
+      "sha256": "b49af3077fe35d56eb9ffbc7423d173f87f4ee970ed14f9d9bfb23365b15c8f8",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "kind": "figure",
+      "num": "12",
+      "page": 10,
+      "caption": "Fig. 12: Failure mode removal. Here we apply RECAP on a variant of the laundry task with one item but a very strict success criteria. RECAP is particularly effective at removing failure modes that would be considered non successful under the strict criteria. Therefore, our method can also be used to alter a policy’s behavior with relatively little data effectively.",
+      "bbox": [
+        0.506,
+        0.26,
+        0.924,
+        0.456
+      ],
+      "file": "fig-12.png",
+      "mode": "裁剪",
+      "sha256": "0fa02976362670ffb4bd786f2d4ae626eee6601a9f08540de4341fcba7ce0bd0",
+      "width": 768,
+      "height": 467
+    },
+    {
+      "kind": "figure",
+      "num": "13",
+      "page": 17,
+      "caption": "Fig. 13: Additional visualization of value function on five different tasks. Red parts highlight places where value drops, green parts highlight places where value increases, and yellow parts highlight oscillating value regions. Images show the corresponding frames and descriptions of the episode.",
+      "bbox": [
+        0.069,
+        0.04,
+        0.505,
+        0.63
+      ],
+      "file": "fig-13.png",
+      "mode": "裁剪",
+      "sha256": "2fae5cb71f7cdf942827173ee0dd88403bb8d121a27de039612d26360e5c4b6f",
+      "width": 802,
+      "height": 1402
+    }
+  ]
+}
