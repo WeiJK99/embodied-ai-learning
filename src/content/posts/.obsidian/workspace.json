@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "nav2-notes/index.md",
+                "file": "reinforcement-learning/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -184,5 +184,10 @@
     }
   },
   "active": "956d24c4c198a5f8",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "cnn/index.md",
+    "gradient-descent/index.md",
+    "kinematics/index.md",
+    "nav2-notes/index.md"
+  ]
 }

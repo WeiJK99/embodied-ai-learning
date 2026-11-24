@@ -1,0 +1,125 @@
+# FAST-LIO2 图片维护索引
+
+仅供本地维护；正文是唯一公开 Markdown 入口。
+
+源 PDF SHA-256：`25ee5a7a43c3775a842f858ea23b91867fb18d21a7f17b730cd9ae19e77c74e4`
+
+## figure 1 · PDF p.4
+
+Fig. 1. System overview of FAST-LIO2.
+
+![figure 1](fig-01.png)
+
+裁剪：`[0.075, 0.068, 0.925, 0.235]`；SHA-256：`17594b40372b49de087552a1c980c6f0fc1bf209a34c757d3c60643c333dbdc2`
+
+## figure 2 · PDF p.5
+
+Fig. 2. The measurement model.
+
+![figure 2](fig-02.png)
+
+裁剪：`[0.075, 0.066, 0.495, 0.199]`；SHA-256：`fb5206f8efb40995c9e5ed08b678f8a4ce7e18d3070b8f24c05b38e6d976fda6`
+
+## figure 3 · PDF p.6
+
+Fig. 3. 2D demonstration of map region management. In (a), the blue rectangle is the initial map region with length L. The red circle is the initial detection area centered at the initial LiDAR position p0. In (b), the detection area (dashed red circle) moves to a new position p′(circle with solid red line) where the map boundaries are touched. The map region is moved to a new position (green rectangle) by distance d. The points in the subtraction area (orange area) are removed from the map (i.e., ikd-Tree).
+
+![figure 3](fig-03.png)
+
+裁剪：`[0.506, 0.4, 0.925, 0.575]`；SHA-256：`5fe3b8a772f269c90942ba9de077490161dfecebd6f14c64fde360688f418c1b`
+
+## figure 4 · PDF p.9
+
+Fig. 4. Re-building an unbalanced sub-tree
+
+![figure 4](fig-04.png)
+
+裁剪：`[0.075, 0.065, 0.495, 0.178]`；SHA-256：`338b28f746abb42c910a7df7a3e9397552e1ace512e616bc79f174640347dd6d`
+
+## figure 5 · PDF p.12
+
+Fig. 5. Data structure comparison over different tree size.
+
+![figure 5](fig-05.png)
+
+裁剪：`[0.075, 0.404, 0.495, 0.674]`；SHA-256：`9e35dc3ffd56f5e7c7081eef178fd94df7b4e40b59802a240fccf6decc8364e1`
+
+## figure 6 · PDF p.14
+
+Fig. 6. Three different platforms: (a) 280 mm wheelbase small scale quadrotor UAV carrying a forward-looking Livox Avia LiDAR, (b) handheld platforms, (c) 750 mm wheelbase quadrotor UAV carrying a down-facing Livox Avia LiDAR. All three platforms carry the same DJI Manifold- 2C onboard computer. The video of real-world experiments is available at https://youtu.be/2OvjGnxszf8.
+
+![figure 6](fig-06.png)
+
+裁剪：`[0.505, 0.067, 0.925, 0.152]`；SHA-256：`a6e884769448d0d9ed80f852eda9b97b955ffc38251f259cd51486ea597009dc`
+
+## figure 7 · PDF p.15
+
+Fig. 7. Large-scale scene experiment.
+
+![figure 7](fig-07.png)
+
+裁剪：`[0.075, 0.366, 0.495, 0.673]`；SHA-256：`fafc0e9e7e7ca2eea095893aaff5dab9ce9d29cbedd104c517ba6ee5940b6dc6`
+
+## figure 8 · PDF p.15
+
+Fig. 8. The processing time for each LiDAR scan of FAST-LIO and FAST- LIO2.
+
+![figure 8](fig-08.png)
+
+裁剪：`[0.506, 0.558, 0.925, 0.766]`；SHA-256：`9f98f0c00d4a931d3e1dba7ab6c5508d2b1122b789aed7eb643065e9a39bc756`
+
+## figure 9 · PDF p.16
+
+Fig. 9. The ﬂip experiment. (a) the small scale UAV; (b) the onboard camera showing ﬁrst person view (FPV) images during the ﬂip; (c) the third person view images of the UAV during the ﬂip; (d) the estimated UAV pose with FAST-LIO2.
+
+![figure 9](fig-09.png)
+
+裁剪：`[0.075, 0.067, 0.495, 0.203]`；SHA-256：`aee618d671c39f36afc4adbb34df2cea1de9d7920522d300e7023d1fc8324b92`
+
+## figure 11 · PDF p.16
+
+Fig. 11. The attitude, position, angular velocity and linear velocity in the UAV ﬂip experiments.
+
+![figure 11](fig-11.png)
+
+裁剪：`[0.506, 0.067, 0.925, 0.307]`；SHA-256：`31e54b3f5be37e383f47224b10e48ab4ecf992dbbd9f50ca3a557ccfccbc5aa9`
+
+## figure 12 · PDF p.16
+
+Fig. 12. The mapping results of FAST-LIO2 in the fast motion handheld experiment.
+
+![figure 12](fig-12.png)
+
+裁剪：`[0.505, 0.352, 0.925, 0.555]`；SHA-256：`6942706e8aeaee06498063d72fc9d6c808fc456aff01cb321699d8ffb5223cc8`
+
+## figure 14 · PDF p.17
+
+Fig. 14. Real-time mapping results with FAST-LIO2 for airborne mapping. The data is collected in the Hong Kong Wetland Park by a UAV with a down- facing Livox Avia LiDAR. The ﬂight heights are 30 m (a), 30 m (b) and 50 m (c).
+
+![figure 14](fig-14.png)
+
+裁剪：`[0.075, 0.358, 0.495, 0.561]`；SHA-256：`00fe8f20c72e2e44f95ba8bb397dde24921e2507913b7c6788575e0e8accb3b1`
+
+## table IV · PDF p.13
+
+TABLE IV ABSOLUTE TRANSLATIONAL ERRORS (RMSE, METERS) IN SEQUENCES WITH GOOD QUALITY GROUND TRUTH
+
+![table IV](tab-IV.png)
+
+裁剪：`[0.09, 0.071, 0.91, 0.264]`；SHA-256：`6b5c11f0b5f4b8d4f3dba1b16683f481c652c58e82d441ce64116c040248b2ee`
+
+## table V · PDF p.14
+
+TABLE V END TO END ERRORS (METERS)
+
+![table V](tab-V.png)
+
+裁剪：`[0.085, 0.071, 0.485, 0.363]`；SHA-256：`eeef19bcba9439249e7865dac165b8be272f810475e3a4baec041eb582c8d043`
+
+## table VII · PDF p.15
+
+TABLE VII MEAN TIME CONSUMPTION IN MILISECONDS BY INDIVIDUAL COMPONENTS WHEN PROCESSING A LIDAR SCAN
+
+![table VII](tab-VII.png)
+
+裁剪：`[0.513, 0.37, 0.923, 0.542]`；SHA-256：`10cf1c11f93d5ad964825f78c8f3558a48d8ee39ea5f19c102961d8129174fba`
