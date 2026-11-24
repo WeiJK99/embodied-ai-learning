@@ -1,17 +1,28 @@
 ---
-title: "FAST-LIO2 论文精读：直接点云配准与 ikd-Tree 如何支撑高速激光惯性里程计"
+title: FAST-LIO2 论文精读：直接点云配准与 ikd-Tree 如何支撑高速激光惯性里程计
 published: 2021-07-14
-created: 2026-11-23
-description: "从 24 维流形状态、IMU 去畸变和迭代卡尔曼更新，到 ikd-Tree 增量建图、连续两帧算例与实验口径，完整拆解 FAST-LIO2。"
+created: 2026-11-24
+description: 从 24 维流形状态、IMU 去畸变和迭代卡尔曼更新，到 ikd-Tree 增量建图、连续两帧算例与实验口径，完整拆解 FAST-LIO2。
 image: ./images/fig-01.png
-tags: [论文精读, SLAM, FAST-LIO2, 激光惯性里程计, 误差状态卡尔曼滤波, ikd-Tree]
+tags:
+  - 论文精读
+  - SLAM
+  - FAST-LIO2
+  - 激光惯性里程计
+  - 误差状态卡尔曼滤波
+  - ikd-Tree
 category: 每周论文精读/SLAM
 draft: false
 lang: zh-CN
 document_id: file-8d5b281e4e6153db
 source_type: local_pdf
 source_url: https://arxiv.org/abs/2107.06829
-authors: [Wei Xu, Yixi Cai, Dongjiao He, Jiarong Lin, Fu Zhang]
+authors:
+  - Wei Xu
+  - Yixi Cai
+  - Dongjiao He
+  - Jiarong Lin
+  - Fu Zhang
 domain: SLAM / 激光惯性里程计 / 状态估计
 ---
 
