@@ -45,9 +45,9 @@ function finalize(level: Map<string, MutableNode>): CategoryNode[] {
  *     基础知识 -> 深度学习 -> 梯度下降 三层节点，且每个祖先节点计数都 +1。
  */
 export async function getCategoryTree(): Promise<CategoryNode[]> {
-	// 获取文章：生产环境排除草稿，开发环境全部显示
+	// 生产环境排除草稿和本地笔记，开发环境全部显示。
 	const posts = await getCollection("posts", ({ data }) =>
-		import.meta.env.PROD ? data.draft !== true : true,
+		import.meta.env.PROD ? !data.draft && data.upload : true,
 	);
 
 	const roots = new Map<string, MutableNode>();
@@ -94,7 +94,7 @@ export async function getCategoryTree(): Promise<CategoryNode[]> {
 export async function getPostsByCategory(category: string) {
 	const target = category.trim();
 	const posts = await getCollection("posts", ({ data }) =>
-		import.meta.env.PROD ? data.draft !== true : true,
+		import.meta.env.PROD ? !data.draft && data.upload : true,
 	);
 
 	const filtered = posts.filter((post) => {

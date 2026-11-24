@@ -54,6 +54,7 @@ image: ''
 tags: []
 category: ''
 draft: false 
+upload: yes
 lang: ''
 ---
 `;

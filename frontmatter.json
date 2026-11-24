@@ -57,6 +57,12 @@
           "type": "boolean"
         },
         {
+          "title": "upload",
+          "name": "upload",
+          "type": "boolean",
+          "default": true
+        },
+        {
           "title": "language",
           "name": "language",
           "type": "string"

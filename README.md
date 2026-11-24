@@ -60,6 +60,7 @@ image: ./cover.jpg
 tags: [Foo, Bar]
 category: Front-end
 draft: false
+upload: yes   # Set to no to keep this post local when using pnpm publish-post
 lang: jp      # Set only if the post's language differs from the site's language in `config.ts`
 ---
 ```

@@ -67,9 +67,12 @@ image: ./cover.jpg
 tags: [Foo, Bar]
 category: Front-end
 draft: false
+upload: yes   # 改为 no 可让 pnpm publish-post 跳过此文章
 lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需要设置
 ---
 ```
+
+上传开关的完整说明见 [用 Markdown 控制文章上传](post-upload.md)。
 
 ## 🧞 指令
 

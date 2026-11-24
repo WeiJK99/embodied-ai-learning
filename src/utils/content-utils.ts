@@ -7,7 +7,7 @@ import { comparePostsByDate } from "./post-date";
 // Retrieve posts by blog creation date, falling back to publication date.
 async function getRawSortedPosts() {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
+		return import.meta.env.PROD ? !data.draft && data.upload : true;
 	});
 
 	const sorted = allBlogPosts.sort(comparePostsByDate);
@@ -50,7 +50,7 @@ export type Tag = {
 
 export async function getTagList(): Promise<Tag[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
+		return import.meta.env.PROD ? !data.draft && data.upload : true;
 	});
 
 	const countMap: { [key: string]: number } = {};
@@ -77,7 +77,7 @@ export type Category = {
 
 export async function getCategoryList(): Promise<Category[]> {
 	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
+		return import.meta.env.PROD ? !data.draft && data.upload : true;
 	});
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { category: string | null } }) => {

@@ -8,6 +8,10 @@ const postsCollection = defineCollection({
 		create: z.date().optional(), // alias of created
 		updated: z.date().optional(),
 		draft: z.boolean().optional().default(false),
+		upload: z
+			.union([z.boolean(), z.enum(["yes", "no"])])
+			.default("yes")
+			.transform((value) => value === true || value === "yes"),
 		description: z.string().optional().default(""),
 		image: z.string().optional().default(""),
 		tags: z.array(z.string()).optional().default([]),
