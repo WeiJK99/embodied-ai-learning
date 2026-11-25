@@ -87,6 +87,7 @@ function renderMermaidDiagrams() {
 
 renderMermaidDiagrams();
 document.addEventListener("astro:page-load", renderMermaidDiagrams);
+document.addEventListener("private:unlocked", renderMermaidDiagrams);
 
 const setupNavigation = () => {
 	window.swup.hooks.on("page:view", renderMermaidDiagrams);

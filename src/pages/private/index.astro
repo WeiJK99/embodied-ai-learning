@@ -1,0 +1,17 @@
+---
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getEncryptedPosts } from "../../utils/encrypted-posts";
+import { url } from "../../utils/url-utils";
+const posts = getEncryptedPosts();
+---
+<MainGridLayout title="私密文章">
+	<meta slot="head" name="robots" content="noindex, nofollow" />
+	<section class="card-base p-6 md:p-9 text-90">
+		<h1 class="text-3xl font-bold mb-4">私密文章</h1>
+		<p class="mb-6 text-75">输入文章密码后阅读。</p>
+		<ul class="space-y-4">
+			{posts.map((post, index) => <li><a class="text-[var(--primary)]" href={url(`/private/${post.id}/`)}>🔒 私密文章 {index + 1}</a></li>)}
+		</ul>
+		{!posts.length && <p>暂时没有已发布的私密文章。</p>}
+	</section>
+</MainGridLayout>

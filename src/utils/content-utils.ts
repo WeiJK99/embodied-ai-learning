@@ -1,4 +1,5 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getBlogPosts } from "./collection-posts";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
@@ -6,9 +7,7 @@ import { comparePostsByDate } from "./post-date";
 
 // Retrieve posts by blog creation date, falling back to publication date.
 async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft && data.upload : true;
-	});
+	const allBlogPosts = await getBlogPosts();
 
 	const sorted = allBlogPosts.sort(comparePostsByDate);
 	return sorted;
@@ -49,9 +48,7 @@ export type Tag = {
 };
 
 export async function getTagList(): Promise<Tag[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft && data.upload : true;
-	});
+	const allBlogPosts = await getBlogPosts();
 
 	const countMap: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { tags: string[] } }) => {
@@ -76,9 +73,7 @@ export type Category = {
 };
 
 export async function getCategoryList(): Promise<Category[]> {
-	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
-		return import.meta.env.PROD ? !data.draft && data.upload : true;
-	});
+	const allBlogPosts = await getBlogPosts();
 	const count: { [key: string]: number } = {};
 	allBlogPosts.forEach((post: { data: { category: string | null } }) => {
 		if (!post.data.category) {

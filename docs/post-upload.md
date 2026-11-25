@@ -44,3 +44,5 @@ pnpm publish-post --dry-run
 首次启用或更新此功能时，需要先把发布脚本、内容配置、列表工具、新建文章模板和依赖变更一起提交；只提交文章不会更新网站代码。发布脚本检测到这些实现文件存在未提交改动时会停止，列出需要先提交的代码，避免本地和 GitHub Actions 使用不同规则。
 
 验证：`node --test tests/post-upload.test.mjs`，然后运行 `pnpm build`。
+
+需要上传加密内容、输入密码后阅读时，设置 `access: private` 和 `upload: yes`，详见[私密文章](private-posts.md)。`upload: no` 的优先级更高，不发布密文。

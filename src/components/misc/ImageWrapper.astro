@@ -11,6 +11,7 @@ interface Props {
 }
 
 import { Image } from "astro:assets";
+import images from "virtual:blog-images";
 import { url } from "../../utils/url-utils";
 
 const { id, src, alt, position = "center", basePath = "/" } = Astro.props;
@@ -29,19 +30,16 @@ const isPublic = src.startsWith("/");
 // biome-ignore lint/suspicious/noImplicitAnyLet: <check later>
 let img;
 if (isLocal) {
-	const files = import.meta.glob<ImageMetadata>("../../**", {
-		import: "default",
-	});
 	let normalizedPath = path
 		.normalize(path.join("../../", basePath, src))
 		.replace(/\\/g, "/");
-	const file = files[normalizedPath];
+	const file = images[normalizedPath];
 	if (!file) {
 		console.error(
 			`\n[ERROR] Image file not found: ${normalizedPath.replace("../../", "src/")}`,
 		);
 	}
-	img = await file();
+	img = (await file()).default;
 }
 
 const imageClass = "w-full h-full object-cover";

@@ -55,6 +55,7 @@ tags: []
 category: ''
 draft: false 
 upload: yes
+access: public
 lang: ''
 ---
 `;

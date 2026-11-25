@@ -87,3 +87,5 @@ lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需
 | `pnpm new-post <filename>`        | 创建新文章                             |
 | `pnpm astro ...`                  | 执行 `astro add`, `astro check` 等指令 |
 | `pnpm astro --help`               | 显示 Astro CLI 帮助                   |
+
+私密文章：在 Markdown 顶部设置 `access: private` 和 `upload: yes`，发布时只上传密文。详见[密码解密与源码保护](private-posts.md)。

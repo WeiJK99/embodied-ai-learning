@@ -24,6 +24,7 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
+import privacyIntegration from "./scripts/privacy-integration.js";
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,6 +32,7 @@ export default defineConfig({
 	base: "/embodied-ai-learning",
 	trailingSlash: "always",
 	integrations: [
+		privacyIntegration(),
 		tailwind({
 			nesting: true,
 		}),

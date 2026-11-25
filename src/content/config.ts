@@ -1,6 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { publicContentLoader } from "../../scripts/public-content-loader.js";
 
 const postsCollection = defineCollection({
+	loader: publicContentLoader(),
 	schema: z.object({
 		title: z.string(),
 		published: z.date(),
@@ -8,6 +10,7 @@ const postsCollection = defineCollection({
 		create: z.date().optional(), // alias of created
 		updated: z.date().optional(),
 		draft: z.boolean().optional().default(false),
+		access: z.enum(["public", "private"]).default("public"),
 		upload: z
 			.union([z.boolean(), z.enum(["yes", "no"])])
 			.default("yes")

@@ -1,0 +1,13 @@
+---
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import PrivateArticle from "../../components/PrivateArticle.astro";
+import { getEncryptedPosts } from "../../utils/encrypted-posts";
+export function getStaticPaths() {
+	return getEncryptedPosts().map((post) => ({ params: { id: post.id }, props: { envelope: post.envelope } }));
+}
+const { envelope } = Astro.props;
+---
+<MainGridLayout title="私密文章">
+	<meta slot="head" name="robots" content="noindex, nofollow" />
+	<PrivateArticle envelope={envelope} />
+</MainGridLayout>

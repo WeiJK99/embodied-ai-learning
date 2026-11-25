@@ -1,0 +1,98 @@
+---
+interface Props { envelope: Record<string, unknown> }
+const { envelope } = Astro.props;
+---
+<private-article class="card-base block p-6 md:p-9 text-90" data-pagefind-ignore="all" data-swup-cache="false">
+	<script is:inline type="application/json" data-envelope set:html={JSON.stringify(envelope).replaceAll("<", "\\u003c")} />
+	<h1 class="text-3xl font-bold mb-6" data-private-title>私密文章</h1>
+	<form class="space-y-4" data-unlock-form>
+		<label class="block" for="article-password">文章密码</label>
+		<input id="article-password" name="password" type="password" required autocomplete="off" class="block w-full rounded-lg border p-3 bg-[var(--card-bg)]" />
+		<p class="text-75 text-sm">密码仅用于当前浏览器解密，离开页面后需要重新输入。</p>
+		<button type="submit" class="btn-regular px-6 py-3 rounded-lg">解锁阅读</button>
+		<p role="status" aria-live="polite" data-private-status></p>
+	</form>
+	<div data-unlocked hidden>
+		<button type="button" data-lock class="btn-regular px-4 py-2 mb-6 rounded-lg">重新锁定</button>
+		<div data-private-body class="custom-md prose dark:prose-invert max-w-none"></div>
+	</div>
+	<noscript>阅读私密文章需要启用 JavaScript。</noscript>
+</private-article>
+<script>
+	import { decryptPrivatePost } from "../utils/private-crypto.js";
+	class PrivateArticle extends HTMLElement {
+		urls: string[] = [];
+		generation = 0;
+		connectedCallback() {
+			const form = this.querySelector<HTMLFormElement>("[data-unlock-form]")!;
+			form.onsubmit = (event) => { event.preventDefault(); void this.unlock(); };
+			this.querySelector<HTMLButtonElement>("[data-lock]")!.onclick = () => this.lock();
+			window.addEventListener("pagehide", this.onLeave);
+			document.addEventListener("private:lock-all", this.onLeave);
+		}
+		onLeave = () => this.lock();
+		disconnectedCallback() {
+			this.lock();
+			window.removeEventListener("pagehide", this.onLeave);
+			document.removeEventListener("private:lock-all", this.onLeave);
+		}
+		lock() {
+			this.generation++;
+			this.querySelector("[data-private-body]")!.replaceChildren();
+			this.querySelector("[data-private-title]")!.textContent = "私密文章";
+			this.querySelector<HTMLElement>("[data-unlocked]")!.hidden = true;
+			this.querySelector<HTMLFormElement>("form")!.hidden = false;
+			this.querySelector<HTMLInputElement>("input")!.value = "";
+			this.querySelector<HTMLButtonElement>("button[type=submit]")!.disabled = false;
+			this.querySelector("[data-private-status]")!.textContent = "";
+			for (const url of this.urls) URL.revokeObjectURL(url);
+			this.urls = [];
+		}
+		async unlock() {
+			const generation = ++this.generation;
+			const input = this.querySelector<HTMLInputElement>("input")!;
+			const status = this.querySelector<HTMLElement>("[data-private-status]")!;
+			const button = this.querySelector<HTMLButtonElement>("button[type=submit]")!;
+			const password = input.value;
+			input.value = "";
+			button.disabled = true;
+			status.textContent = "正在解密…";
+			try {
+				if (!crypto.subtle) throw new Error("Web Crypto unavailable");
+				const payload = await decryptPrivatePost(JSON.parse(this.querySelector("[data-envelope]")!.textContent!), password);
+				if (generation !== this.generation || !this.isConnected) return;
+				const body = this.querySelector<HTMLElement>("[data-private-body]")!;
+				// HTML is generated with raw HTML disabled by the local Markdown renderer,
+				// then authenticated together with every attachment by AES-GCM.
+				body.innerHTML = payload.html;
+				for (const asset of payload.assets) {
+					const bytes = Uint8Array.from(atob(asset.data), (char) => char.charCodeAt(0));
+					const url = URL.createObjectURL(new Blob([bytes], { type: asset.type }));
+					this.urls.push(url);
+					for (const element of body.querySelectorAll<HTMLElement>(`[data-private-asset="${asset.id}"]`)) {
+						element.setAttribute(element.tagName === "IMG" ? "src" : "href", url);
+					}
+				}
+				this.querySelector("[data-private-title]")!.textContent = payload.title;
+				this.querySelector<HTMLFormElement>("form")!.hidden = true;
+				this.querySelector<HTMLElement>("[data-unlocked]")!.hidden = false;
+				status.textContent = "";
+				document.dispatchEvent(new Event("private:unlocked"));
+			} catch {
+				if (generation === this.generation) {
+					this.lock();
+					status.textContent = window.isSecureContext ? "密码错误或文章数据已损坏，请重试。" : "请通过 HTTPS 或 localhost 打开文章。";
+					input.focus();
+				}
+			} finally { if (generation === this.generation) button.disabled = false; }
+		}
+	}
+	if (!customElements.get("private-article")) customElements.define("private-article", PrivateArticle);
+	// Clear decrypted DOM before Swup takes a navigation snapshot.
+	const setupLock = () => window.swup.hooks.before("visit:start", () => document.dispatchEvent(new Event("private:lock-all")));
+	if (window.swup?.hooks) setupLock();
+	else document.addEventListener("swup:enable", setupLock, { once: true });
+</script>
+<style>
+	[hidden] { display: none !important; }
+</style>

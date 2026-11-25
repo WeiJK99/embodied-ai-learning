@@ -66,6 +66,16 @@
           "title": "language",
           "name": "language",
           "type": "string"
+        },
+        {
+          "title": "access",
+          "name": "access",
+          "type": "choice",
+          "choices": [
+            "public",
+            "private"
+          ],
+          "default": "public"
         }
       ]
     }

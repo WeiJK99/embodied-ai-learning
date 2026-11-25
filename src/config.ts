@@ -43,6 +43,7 @@ export const navBarConfig: NavBarConfig = {
 	links: [
 		LinkPreset.Home,
 		LinkPreset.Archive,
+		{ name: "私密文章", url: "/private/" },
 		LinkPreset.About,
 		{
 			name: "GitHub",

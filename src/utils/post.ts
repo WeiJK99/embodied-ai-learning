@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getBlogPosts } from "./collection-posts";
 import { comparePostsByDate } from "./post-date";
 
 // 分类树节点类型（支持任意层级嵌套）
@@ -46,9 +46,7 @@ function finalize(level: Map<string, MutableNode>): CategoryNode[] {
  */
 export async function getCategoryTree(): Promise<CategoryNode[]> {
 	// 生产环境排除草稿和本地笔记，开发环境全部显示。
-	const posts = await getCollection("posts", ({ data }) =>
-		import.meta.env.PROD ? !data.draft && data.upload : true,
-	);
+	const posts = await getBlogPosts();
 
 	const roots = new Map<string, MutableNode>();
 
@@ -93,9 +91,7 @@ export async function getCategoryTree(): Promise<CategoryNode[]> {
  */
 export async function getPostsByCategory(category: string) {
 	const target = category.trim();
-	const posts = await getCollection("posts", ({ data }) =>
-		import.meta.env.PROD ? !data.draft && data.upload : true,
-	);
+	const posts = await getBlogPosts();
 
 	const filtered = posts.filter((post) => {
 		const current = String(post.data.category ?? "").trim();

@@ -4,8 +4,35 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createUploadFilter, isPost, postsDirectory } from "./post-upload.js";
+import {
+	encryptedDirectory,
+	privateBundles,
+	scanPosts,
+} from "./private-posts.js";
 
 const implementationFiles = [
+	"scripts/private-posts.js",
+	"scripts/public-content-loader.js",
+	"scripts/privacy-integration.js",
+	"scripts/check-private-source.js",
+	"scripts/init-privacy.js",
+	".githooks",
+	".github/workflows/deploy.yml",
+	".gitignore",
+	"astro.config.mjs",
+	"src/utils/collection-posts.ts",
+	"src/utils/encrypted-posts.ts",
+	"src/utils/private-crypto.js",
+	"src/utils/private-crypto.d.ts",
+	"src/types/private-modules.d.ts",
+	"src/pages/private",
+	"src/pages/posts/[...slug].astro",
+	"src/components/PrivateArticle.astro",
+	"src/components/PostCard.astro",
+	"src/components/PostPage.astro",
+	"src/components/misc/ImageWrapper.astro",
+	"src/scripts/mermaid.ts",
+	"src/config.ts",
 	"scripts/publish-post.js",
 	"scripts/post-upload.js",
 	"scripts/new-post.js",
@@ -189,7 +216,7 @@ function pendingCommits(cwd, canUpload) {
 		);
 		if (blocked.length) {
 			throw new Error(
-				`Publish stopped: unpushed commit ${commit.slice(0, 7)} contains upload: no files:\n${blocked.join("\n")}\nMove those files out of the unpushed commit before publishing.`,
+				`Publish stopped: unpushed commit ${commit.slice(0, 7)} contains upload: no files or access: private source:\n${blocked.join("\n")}\nMove those files out of the unpushed commit before publishing.`,
 			);
 		}
 	}
@@ -200,6 +227,10 @@ export function publishPost({
 	cwd = process.cwd(),
 	message = `content: publish article ${new Date().toISOString().slice(0, 10)}`,
 	dryRun = false,
+	prepare = () =>
+		run(cwd, process.execPath, [
+			fileURLToPath(new URL("./private-posts.js", import.meta.url)),
+		]),
 	build = () => {
 		const pnpm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
 		run(cwd, pnpm, ["build"], { shell: process.platform === "win32" });
@@ -212,6 +243,19 @@ export function publishPost({
 			`Publish stopped: current branch is "${branch}", expected "main".`,
 		);
 	}
+	const encrypted = privateBundles(cwd, scanPosts(cwd))
+		.filter(
+			(post) =>
+				post.data.upload !== false &&
+				post.data.upload !== "no" &&
+				!post.data.draft,
+		)
+		.map((post) => post.filename);
+	if (!dryRun) prepare();
+	if (encrypted.length)
+		console.log(
+			`Encrypting private articles (plaintext excluded):\n${encrypted.join("\n")}`,
+		);
 	const tracked = paths(
 		git(cwd, [
 			"ls-tree",
@@ -221,6 +265,7 @@ export function publishPost({
 			"HEAD",
 			"--",
 			postsDirectory,
+			encryptedDirectory,
 		]),
 	);
 	const filenames = [
@@ -235,6 +280,7 @@ export function publishPost({
 					"-z",
 					"--",
 					postsDirectory,
+					encryptedDirectory,
 				]),
 			),
 		]),
@@ -252,6 +298,7 @@ export function publishPost({
 					"HEAD",
 					"--",
 					postsDirectory,
+					encryptedDirectory,
 				]),
 			),
 			...paths(
@@ -262,6 +309,7 @@ export function publishPost({
 					"-z",
 					"--",
 					postsDirectory,
+					encryptedDirectory,
 				]),
 			),
 		]),
@@ -271,7 +319,7 @@ export function publishPost({
 	const skipped = changed.filter((filename) => !canUpload(filename));
 	if (skipped.length) {
 		console.log(
-			`Skipping ${skipped.length} file(s) with upload: no:\n${skipped.join("\n")}\n`,
+			`Skipping ${skipped.length} plaintext file(s) with upload: no or access: private:\n${skipped.join("\n")}\n`,
 		);
 	}
 	if (withdrawn.length)
@@ -303,6 +351,7 @@ export function publishPost({
 		]),
 	];
 	const plan = {
+		encrypted,
 		upload: selected,
 		withdraw: withdrawn,
 		skipped,
