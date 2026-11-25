@@ -10,13 +10,13 @@ GitHub Pages 继续托管静态页面。私密文章的标题、正文和引用�
 pnpm privacy:init
 ```
 
-此命令生成随机密码，保存在被 Git 忽略的 `.env.private`，并启用 `.githooks` 中的提交/推送检查。请在本地打开此文件查看密码，妥善备份。也可将 `BLOG_PRIVATE_PASSWORD` 改成长且唯一的密码，至少 16 个字符；不在聊天、Markdown、仓库或 GitHub Actions 中填写密码。环境变量 `BLOG_PRIVATE_PASSWORD` 优先于文件。
+此命令生成随机密码，保存在被 Git 忽略的 `.env.private`，并启用 `.githooks` 中的提交/推送检查。请在本地打开此文件查看密码，妥善备份。也可自行修改 `BLOG_PRIVATE_PASSWORD`，最低 8 个字符，建议使用更长且唯一的密码；不在聊天、Markdown、仓库或 GitHub Actions 中填写密码。环境变量 `BLOG_PRIVATE_PASSWORD` 优先于文件。
 
 已有自定义 Git hooks 时，初始化会停止而不覆盖配置；把 `node scripts/check-private-source.js` 和 `node scripts/check-private-source.js --push` 分别接到自己的 pre-commit / pre-push hook 中。
 
 ## 在 Markdown 设置
 
-每篇私密文章使用独立目录，例如 `src/content/posts/my-private-note/index.md`：
+私密文章放在 `src/content/posts/` 下的子目录中。可以每篇使用独立目录，也可以在同一私密目录内放任意篇 Markdown，例如 `src/content/posts/private-notes/note-1.md`：
 
 ```markdown
 ---
@@ -37,7 +37,21 @@ draft: false
 - `upload: no`：不发布，包括密文；已有密文会在本地重新加密/构建时撤下，下次发布后线上生效。
 - `draft: true`：不生成私密页面，也不上传私密明文。
 
-私密目录只能有一篇文章，配图/附件全部放在该目录内。支持标准 Markdown、表格、代码块、KaTeX 数学公式和 Mermaid；不执行原始 HTML、MDX、Astro 组件或自定义指令。Obsidian 图片请使用标准 `![说明](images/file.png)` 写法。图片支持 PNG/JPEG/GIF/WebP/AVIF；不支持 SVG、远程图片或 `public/` 中的图片，这些文件无法由文章加密保护。普通相对附件链接会一并加密为浏览器下载文件，不支持 HTML、JS、SVG 或另一篇 Markdown 作为附件。普通外部超链接可正常使用。
+同一个私密目录可放任意篇文章，也支持子目录，例如：
+
+```text
+src/content/posts/private-notes/
+├── note-1.md
+├── note-2.md
+├── images/
+│   └── photo.png
+└── topic/
+    └── note-3.md
+```
+
+每篇 Markdown 都需单独设置 `access: private`；文件夹名称本身不控制权限。这个目录及其子目录不能混放公开文章，原稿和附件整体留在本机。各篇分别加密、生成独立阅读入口，不限制篇数。`upload: yes/no` 和 `draft` 逐篇生效，撤下一篇不会影响同目录其他文章；只有 `access: private`、`upload: yes` 且非草稿的文章才会出现在网站的“私密文章”列表中。
+
+配图/附件放在引用它的 Markdown 所在目录或其子目录内，多篇同目录文章可以引用同一个附件，附件会分别打包进各篇的密文。支持标准 Markdown、表格、代码块、KaTeX 数学公式和 Mermaid；不执行原始 HTML、MDX、Astro 组件或自定义指令。Obsidian 图片请使用标准 `![说明](images/file.png)` 写法。图片支持 PNG/JPEG/GIF/WebP/AVIF；不支持 SVG、远程图片或 `public/` 中的图片，这些文件无法由文章加密保护。普通相对附件链接会一并加密为浏览器下载文件，不支持 HTML、JS、SVG 或另一篇 Markdown 作为附件。普通外部超链接可正常使用。
 
 ## 预览与发布
 

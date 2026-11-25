@@ -109,13 +109,115 @@ test("private Markdown, images and attachments are bundled into ciphertext, with
 	assert.equal(existsSync(path.join(cwd, filename)), true);
 });
 
-test("private export rejects short passwords, unsafe asset paths, external images and shared article directories", async (t) => {
+test("multiple private articles share a directory with independent ciphertext, updates and withdrawals", async (t) => {
+	const { cwd, write } = fixture(t);
+	const root = `${postsDirectory}/secret`;
+	const filenames = [
+		"first.md",
+		"second.md",
+		"third.md",
+		"nested/index.md",
+	].map((name) => `${root}/${name}`);
+	for (const [index, filename] of filenames.entries()) {
+		write(
+			filename,
+			article(
+				"",
+				`PRIVATE_BODY_${index}\n\n![shared](${index === 3 ? "nested.png" : "shared.png"})`,
+			).replace("PRIVATE_TITLE_SENTINEL", `PRIVATE_TITLE_${index}`),
+		);
+	}
+	write(`${root}/shared.png`, "PRIVATE_SHARED_IMAGE");
+	write(`${root}/nested/nested.png`, "PRIVATE_NESTED_IMAGE");
+	write(
+		`${root}/local-only.md`,
+		article().replace("upload: yes", "upload: no"),
+	);
+	write(`${root}/draft.md`, article("draft: true\n"));
+	assert.deepEqual(
+		(await preparePrivatePosts({ cwd, dryRun: true })).sort(),
+		[...filenames].sort(),
+	);
+	await preparePrivatePosts({ cwd, password });
+	const statePath = path.join(cwd, ".private-posts/state.json");
+	const state = JSON.parse(readFileSync(statePath));
+	assert.deepEqual(Object.keys(state).sort(), [...filenames].sort());
+	assert.equal(new Set(Object.values(state).map((post) => post.id)).size, 4);
+	const outputs = filenames.map((filename) =>
+		path.join(cwd, "encrypted-posts", `${state[filename].id}.json`),
+	);
+	const contents = outputs.map((output) => readFileSync(output, "utf8"));
+	for (const [index, contentsOfPost] of contents.entries()) {
+		assert.doesNotMatch(contentsOfPost, /PRIVATE_/);
+		const payload = await decryptPrivatePost(
+			JSON.parse(contentsOfPost),
+			password,
+		);
+		assert.equal(payload.title, `PRIVATE_TITLE_${index}`);
+		assert.match(payload.html, new RegExp(`PRIVATE_BODY_${index}`));
+		assert.equal(payload.assets.length, 1);
+		assert.equal(
+			Buffer.from(payload.assets[0].data, "base64").toString(),
+			index === 3 ? "PRIVATE_NESTED_IMAGE" : "PRIVATE_SHARED_IMAGE",
+		);
+	}
+	const canUpload = createUploadFilter(scanPosts(cwd));
+	for (const filename of [
+		...filenames,
+		`${root}/shared.png`,
+		`${root}/nested/nested.png`,
+	])
+		assert.equal(canUpload(filename), false, filename);
+	write(filenames[0], article().replace("upload: yes", "upload: no"));
+	write(filenames[1], article("", "PRIVATE_UPDATED_BODY"));
+	rmSync(path.join(cwd, filenames[2]));
+	await preparePrivatePosts({ cwd, password });
+	const next = JSON.parse(readFileSync(statePath));
+	assert.equal(existsSync(outputs[0]), false);
+	assert.equal(existsSync(outputs[2]), false);
+	assert.equal(existsSync(path.join(cwd, filenames[0])), true);
+	assert.equal(next[filenames[1]].id, state[filenames[1]].id);
+	assert.equal(next[filenames[3]].id, state[filenames[3]].id);
+	assert.equal(readFileSync(outputs[3], "utf8"), contents[3]);
+	assert.match(
+		(await decryptPrivatePost(JSON.parse(readFileSync(outputs[1])), password))
+			.html,
+		/PRIVATE_UPDATED_BODY/,
+	);
+});
+
+test("private export accepts eight-character passwords and rejects fewer than eight characters", async (t) => {
+	const { cwd, write } = fixture(t);
+	write(`${postsDirectory}/secret/index.md`, article());
+	for (const shortPassword of ["", "1234567", "😀".repeat(7)]) {
+		await assert.rejects(
+			preparePrivatePosts({ cwd, password: shortPassword }),
+			/at least 8 characters/,
+		);
+	}
+	for (const validPassword of ["Abc123!?", "密".repeat(8)]) {
+		await preparePrivatePosts({ cwd, password: validPassword });
+		const state = JSON.parse(
+			readFileSync(path.join(cwd, ".private-posts/state.json")),
+		);
+		const { id } = Object.values(state)[0];
+		const envelope = JSON.parse(
+			readFileSync(path.join(cwd, "encrypted-posts", `${id}.json`)),
+		);
+		assert.equal(
+			(await decryptPrivatePost(envelope, validPassword)).title,
+			"PRIVATE_TITLE_SENTINEL",
+		);
+	}
+});
+
+test("private export rejects short passwords, unsafe asset paths, external images and mixed public/private directories", async (t) => {
 	const { cwd, write } = fixture(t);
 	const filename = `${postsDirectory}/secret/index.md`;
 	write(filename, article());
 	await assert.rejects(
 		preparePrivatePosts({ cwd, password: "short" }),
-		/16 characters/,
+		/8 characters/,
 	);
 	for (const body of [
 		"![x](../public.png)",
@@ -126,8 +228,20 @@ test("private export rejects short passwords, unsafe asset paths, external image
 		write(filename, article("", body));
 		assert.throws(() => renderPrivatePost(cwd, scanPosts(cwd)[0]));
 	}
-	write(`${postsDirectory}/secret/another.md`, article());
-	await assert.rejects(preparePrivatePosts({ cwd, password }), /own directory/);
+	write(filename, article());
+	for (const other of ["another.md", "nested/index.md"]) {
+		write(
+			`${postsDirectory}/secret/${other}`,
+			article().replace("access: private", "access: public"),
+		);
+		await assert.rejects(
+			preparePrivatePosts({ cwd, password }),
+			/keep public posts outside private directories/,
+		);
+		rmSync(path.join(cwd, postsDirectory, "secret", other));
+	}
+	write(`${postsDirectory}/flat.md`, article());
+	await assert.rejects(preparePrivatePosts({ cwd, password }), /subdirectory/);
 });
 
 test("private source and its complete asset directory are forbidden in Git, even when only an asset is staged", (t) => {
@@ -156,6 +270,11 @@ test("publishing replaces tracked plaintext with ciphertext and preserves local 
 	git(cwd, "commit", "-m", "base");
 	git(cwd, "update-ref", "refs/remotes/origin/main", "HEAD");
 	write(filename, article("", "![image](image.png)"));
+	write(
+		`${postsDirectory}/secret/second.md`,
+		article("", "PRIVATE_SECOND_BODY"),
+	);
+	write(`${postsDirectory}/secret/third.md`, article("", "PRIVATE_THIRD_BODY"));
 	write("README.md", "unrelated staged change");
 	git(cwd, "add", "README.md");
 	await preparePrivatePosts({ cwd, password });
@@ -171,10 +290,26 @@ test("publishing replaces tracked plaintext with ciphertext and preserves local 
 		git(cwd, "ls-tree", "-r", "--name-only", "HEAD", "--", postsDirectory),
 		"",
 	);
-	assert.match(
-		git(cwd, "ls-tree", "-r", "--name-only", "HEAD", "--", "encrypted-posts"),
-		/[a-f0-9]{32}\.json/,
-	);
+	const ciphertextFiles = git(
+		cwd,
+		"ls-tree",
+		"-r",
+		"--name-only",
+		"HEAD",
+		"--",
+		"encrypted-posts",
+	).split("\n");
+	assert.equal(ciphertextFiles.length, 3);
+	for (const output of ciphertextFiles)
+		assert.match(output, /^encrypted-posts\/[a-f0-9]{32}\.json$/);
 	assert.equal(git(cwd, "diff", "--cached", "--name-only"), "README.md");
 	assert.equal(existsSync(path.join(cwd, filename)), true);
+	assert.equal(
+		existsSync(path.join(cwd, postsDirectory, "secret/second.md")),
+		true,
+	);
+	assert.equal(
+		existsSync(path.join(cwd, postsDirectory, "secret/third.md")),
+		true,
+	);
 });

@@ -224,15 +224,21 @@ export function privateBundles(cwd, posts = scanPosts(cwd)) {
 		.filter((post) => post.data.access === "private")
 		.map((post) => {
 			const directory = path.posix.dirname(post.filename);
-			if (
-				directory === postsDirectory ||
-				posts.some(
-					(other) =>
-						other !== post && other.filename.startsWith(`${directory}/`),
-				)
-			) {
+			if (directory === postsDirectory) {
 				throw new Error(
-					`${post.filename}: give each private post its own directory containing one index.md and its attachments.`,
+					`${post.filename}: put private posts in a subdirectory of ${postsDirectory}, alongside their attachments. Multiple private posts can share that directory.`,
+				);
+			}
+			// A private directory may contain any number of private articles. Keep
+			// public articles outside it so the entire asset tree stays local.
+			const publicPost = posts.find(
+				(other) =>
+					other.data.access !== "private" &&
+					other.filename.startsWith(`${directory}/`),
+			);
+			if (publicPost) {
+				throw new Error(
+					`${post.filename}: keep public posts outside private directories. Set access: private on ${publicPost.filename} or move it to a public directory.`,
 				);
 			}
 			return { ...post, directory };
@@ -259,9 +265,9 @@ export async function preparePrivatePosts({
 		if (existsSync(envPath)) process.loadEnvFile(envPath);
 		password = process.env.BLOG_PRIVATE_PASSWORD;
 	}
-	if (active.length && (!password || [...password].length < 16)) {
+	if (active.length && (!password || [...password].length < 8)) {
 		throw new Error(
-			"Set BLOG_PRIVATE_PASSWORD (at least 16 characters) in the ignored .env.private file. Run pnpm privacy:init first.",
+			"Set BLOG_PRIVATE_PASSWORD (at least 8 characters) in the ignored .env.private file. Run pnpm privacy:init first.",
 		);
 	}
 	const next = {};

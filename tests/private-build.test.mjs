@@ -2,7 +2,6 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import {
 	cpSync,
-	existsSync,
 	mkdirSync,
 	mkdtempSync,
 	readFileSync,
@@ -17,7 +16,7 @@ import { fileURLToPath } from "node:url";
 import { preparePrivatePosts, walkFiles } from "../scripts/private-posts.js";
 
 test(
-	"production output and a source-free CI rebuild contain only encrypted private content",
+	"production output and a source-free CI rebuild publish multiple private articles without plaintext",
 	{ timeout: 300_000 },
 	async (t) => {
 		const repository = fileURLToPath(new URL("../", import.meta.url));
@@ -68,6 +67,12 @@ test(
 			"src/content/posts/secret/private-image-sentinel.png",
 			Buffer.concat([png, Buffer.from("PRIVATE_IMAGE_SENTINEL")]),
 		);
+		for (const name of ["second.md", "topic/third.md"]) {
+			write(
+				`src/content/posts/secret/${name}`,
+				`---\ntitle: PRIVATE_TITLE_SENTINEL ${name}\npublished: 2026-11-24\naccess: private\nupload: yes\n---\nPRIVATE_BODY_SENTINEL ${name}\n`,
+			);
+		}
 		await preparePrivatePosts({
 			cwd,
 			password: "test-only-long-random-password-92741",
@@ -75,7 +80,8 @@ test(
 		const state = JSON.parse(
 			readFileSync(path.join(cwd, ".private-posts/state.json")),
 		);
-		const id = Object.values(state)[0].id;
+		const ids = Object.values(state).map((post) => post.id);
+		assert.equal(ids.length, 3);
 		const run = (args) => {
 			const result = spawnSync(process.execPath, args, {
 				cwd,
@@ -97,7 +103,21 @@ test(
 				"node_modules/pagefind/lib/runner/bin.cjs",
 			);
 			run([pagefind, "--site", "dist"]);
-			assert.ok(existsSync(path.join(cwd, `dist/private/${id}/index.html`)));
+			const directoryPage = readFileSync(
+				path.join(cwd, "dist/private/index.html"),
+				"utf8",
+			);
+			for (const id of ids) {
+				assert.match(directoryPage, new RegExp(`/private/${id}/`));
+				const privatePage = readFileSync(
+					path.join(cwd, `dist/private/${id}/index.html`),
+					"utf8",
+				);
+				const envelope = JSON.parse(
+					readFileSync(path.join(cwd, "encrypted-posts", `${id}.json`)),
+				);
+				assert.ok(privatePage.includes(envelope.ciphertext));
+			}
 			const publicPage = readFileSync(
 				path.join(cwd, "dist/posts/public/index.html"),
 				"utf8",
@@ -117,6 +137,8 @@ test(
 		rmSync(path.join(cwd, ".private-posts"), { recursive: true });
 		run(["scripts/private-posts.js"]);
 		build();
-		console.log(`Verified private build fixture: ${cwd}; article: ${id}`);
+		console.log(
+			`Verified private build fixture: ${cwd}; articles: ${ids.length}`,
+		);
 	},
 );
